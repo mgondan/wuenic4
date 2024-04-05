@@ -15,11 +15,24 @@ oldres = function(ccode="afg", path="../wuenic39/out")
 newres = function(ccode="afg", path="out")
   results(ccode, mask="%s.txt", path=path)
 
-diffcov = function(ccode="afg")
+diffcov = function(ccode="irq")
 {
   old = oldres(ccode)
+  old$Rule[which(old$Rule == "RMF")] = "RMF:"
   new = newres(ccode)
-  any(old$WUENIC != new$WUENIC)
+
+  # Country names are skipped because of problems with special characters
+  # Comments are skipped because they are reordered and slightly reformatted.
+  old = old[, !(names(old) %in% c("Country", "Comment", "X"))]
+  new = new[, !(names(new) %in% c("Country", "Comment"))]
+  d1 = any(old != new, na.rm=TRUE)
+
+  # In Irq, ChildrenInTarget exceeds INT_MAX, skip that one  
+  old = old[, !(names(old) %in% c("ChildrenInTarget"))]
+  new = new[, !(names(new) %in% c("ChildrenInTarget"))]
+  d2 = any(is.na(old) != is.na(new))
+  
+  d1 | d2
 }
 
 diffall = function(path="out")

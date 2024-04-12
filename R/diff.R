@@ -42,8 +42,12 @@ diffall = function(path="out")
   sapply(l, diffcov)
 }
 
-# ccode = "che"
-# args = commandArgs(trailingOnly=TRUE)
-# if(length(args))
-#     ccode = tools::file_path_sans_ext(args[1])
-# print(sprintf("%s: Difference %s", ccode, diffcov(ccode)))
+args = commandArgs(trailingOnly=TRUE)
+if(length(args) > 0)
+{
+    ccode = tools::file_path_sans_ext(args[1])
+    print(sprintf("%s: Difference %s", ccode, diffcov(ccode)))
+}
+
+if(length(args) == 0)
+    print(which(diffall()))

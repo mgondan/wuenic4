@@ -939,10 +939,10 @@ explanation(C, V, Y, Expl) :-
     survey_reason_to_exclude(C, V, Y, Expl).
 
 % Change in V4: report adjustment only for those surveys that have not
-% been ignored by the working group
+% been ignored by the working group (change has been reverted)
 explanation(C, V, Y, Expl) :-
-    survey_accepted(C, V, Y, ID, _), % V4
-    survey_modified(C, V, Y, ID, Expl, _).
+%   survey_accepted(C, V, Y, ID, _), % commented out again
+    survey_modified(C, V, Y, _ID, Expl, _).
 
 explanation(C, V, Y, Expl) :-
     reported_reason_to_exclude(C, V, Y, Expl).
@@ -976,16 +976,16 @@ survey_reason_to_exclude(C, V, Y, Expl) :-
 % MG, discuss: only display if sample size > 300 to avoid long comments
 survey_reason_to_exclude(C, V, Y, Expl) :-
     survey_for_analysis(C, V, Y, _ID, Description, _),
-    member(ss:Size, Description),
-    Size >= 300,
+%    member(ss:Size, Description),
+%    Size >= 300,
     decision(C, V, Y, ignoreSurvey, Expl0, na, _),
     member(title:Title, Description),
     concat_atom([Title, ' results ignored by working group. ', Expl0], Expl).
 
 survey_reason_to_exclude(C, V, Y, Expl) :-
     survey_for_analysis(C, V, Y, ID, Description, _),
-    member(ss:Size, Description),
-    Size >= 300,
+%    member(ss:Size, Description),
+%    Size >= 300,
     decision(C, V, Y, ignoreSurvey, Expl0, ID, _),
     member(title:Title, Description),
     concat_atom([Title, ' results ignored by working group. ', Expl0], Expl).

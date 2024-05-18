@@ -1,4 +1,4 @@
-results = function(fname="afg", mask="%s.txt", path="out")
+results = function(fname="ago", mask="%s.txt", path="out")
 {
   if(!is.null(mask))
     fname = sprintf(mask, fname)
@@ -9,13 +9,13 @@ results = function(fname="afg", mask="%s.txt", path="out")
   read.table(fname, sep='\t', header=TRUE, row.names=NULL)
 }
 
-oldres = function(ccode="afg", path="../wuenic39/out")
+oldres = function(ccode="ago", path="../wuenic39/out")
   results(ccode, mask="%s.txt", path=path)
 
-newres = function(ccode="afg", path="out")
+newres = function(ccode="ago", path="out")
   results(ccode, mask="%s.txt", path=path)
 
-diffcov = function(ccode="irq")
+diffcov = function(ccode="ago")
 {
   old = oldres(ccode)
   old$Rule[which(old$Rule == "RMF")] = "RMF:"
@@ -25,6 +25,9 @@ diffcov = function(ccode="irq")
   # Comments are skipped because they are reordered and slightly reformatted.
   old = old[, !(names(old) %in% c("Country", "Comment", "X"))]
   new = new[, !(names(new) %in% c("Country", "Comment"))]
+  if(any(dim(old) != dim(new)))
+    return(TRUE)
+  
   d1 = any(old != new, na.rm=TRUE)
 
   # In Irq, ChildrenInTarget exceeds INT_MAX, skip that one  

@@ -762,6 +762,14 @@ reported(C, V, Y, Source, Coverage) :-
     Coverage = Cov0.
 
 % Determine whether a working group decision applies for a given year
+decision(C, V, Y, Action, Expl, Survey, Coverage) :-
+    wgd(C, V, Begin, End, Action, 'NA', Survey0, Coverage0, _, _),
+    Begin =< Y, End >= Y,
+    !,
+    Expl = '', % for Haiti
+    Survey = Survey0,
+    Coverage = Coverage0.
+
 decision(C, V, Y, Action, Explanation, Survey, Coverage) :-
     wgd(C, V, Begin, End, Action, Explanation, Survey, Coverage, _, _),
     Begin =< Y, End >= Y.

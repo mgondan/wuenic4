@@ -1,4 +1,4 @@
-results = function(fname="ago", mask="%s.txt", path="out")
+results = function(fname="jam", mask="%s.txt", path="out")
 {
   if(!is.null(mask))
     fname = sprintf(mask, fname)
@@ -9,13 +9,13 @@ results = function(fname="ago", mask="%s.txt", path="out")
   read.table(fname, sep='\t', header=TRUE, row.names=NULL)
 }
 
-oldres = function(ccode="ago", path="../wuenic39/out")
+oldres = function(ccode="jam", path="../wuenic39/out")
   results(ccode, mask="%s.txt", path=path)
 
-newres = function(ccode="ago", path="out")
+newres = function(ccode="jam", path="out")
   results(ccode, mask="%s.txt", path=path)
 
-diffcov = function(ccode="ago")
+diffcov = function(ccode="jam")
 {
   old = oldres(ccode)
   old$Rule[which(old$Rule == "RMF")] = "RMF:"

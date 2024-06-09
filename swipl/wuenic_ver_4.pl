@@ -635,7 +635,7 @@ survey_modified(C, V, Y, ID, Expl, Coverage) :-
     member(title:Title, Description),
     concat_atom(
       [ Title, ' card or history results of ', SurveyCovRounded,
-        ' percent modifed for recall bias to ', Cov0,
+        ' percent modified for recall bias to ', Cov0, % fixed typo
         ' percent based on 1st dose card or history coverage of ', CH1,
         ' percent, 1st dose card only coverage of ', C1,
         ' percent and 3rd dose card only coverage of ', C3,
